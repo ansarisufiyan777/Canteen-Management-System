@@ -2,10 +2,8 @@ package com.andromap33.mcms;
 
 import android.os.Bundle;
 import android.view.View;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 import android.content.ContentValues;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.content.Intent;
 import android.widget.EditText;
@@ -41,18 +39,18 @@ public class AddNewEntry extends BaseActivity {
         if (diet_Taken.length() == 0 || diet_Price.length() == 0) {
             Toast.makeText(this, "Please enter both fields .", Toast.LENGTH_SHORT).show();
         } else {
-            ResidentDbHelper resDbHelper = new ResidentDbHelper(getApplicationContext());
+            DBHelper resDbHelper = new DBHelper(getApplicationContext());
             SQLiteDatabase mydb = resDbHelper.getWritableDatabase();
             // Creating a new map
             ContentValues values = new ContentValues();
-            values.put(ResidentDBContract.ResidentEntry2.COLUMN_NAME_ROLLNO, roll_NO);
-            values.put(ResidentDBContract.ResidentEntry2.COLUMN_NAME_DIET, diet_Taken);
-            values.put(ResidentDBContract.ResidentEntry2.COLUMN_NAME_PRICE, diet_Price);
+            values.put(ResidentDBContract.Diet.COLUMN_NAME_ROLLNO, roll_NO);
+            values.put(ResidentDBContract.Diet.COLUMN_NAME_DIET, diet_Taken);
+            values.put(ResidentDBContract.Diet.COLUMN_NAME_PRICE, diet_Price);
 
             //Inserting a new row
             long newRowID = mydb.insert(
-                    ResidentDBContract.ResidentEntry2.TABLE_NAME,
-                    ResidentDBContract.ResidentEntry2.COLUMN_NAME_PRICE,
+                    ResidentDBContract.Diet.TABLE_NAME,
+                    ResidentDBContract.Diet.COLUMN_NAME_PRICE,
                     values
             );
             Toast.makeText(this, "Entry added .", Toast.LENGTH_SHORT).show();

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -12,7 +11,6 @@ import android.widget.ListView;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.util.Log;
 import android.widget.AdapterView;
 
 import java.util.ArrayList;
@@ -59,7 +57,7 @@ public class ResidentsList extends BaseActivity {
         TextView blockNum = (TextView) findViewById(R.id.block_no);
         String text = "BLOCK  :  " + block_no;
         blockNum.setText(text);
-        ResidentDbHelper resDbHelper = new ResidentDbHelper(getApplicationContext());
+        DBHelper resDbHelper = new DBHelper(getApplicationContext());
         SQLiteDatabase mydb = resDbHelper.getReadableDatabase();
         Cursor c;
         if (!do_search) {

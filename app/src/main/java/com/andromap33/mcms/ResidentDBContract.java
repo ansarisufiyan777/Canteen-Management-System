@@ -19,10 +19,15 @@ public final class ResidentDBContract {
     }
 
 
-    public static abstract class ResidentEntry2 implements BaseColumns {
+    public static abstract class Diet implements BaseColumns {
         public static final String TABLE_NAME = "diet_entry";
         public static final String COLUMN_NAME_ROLLNO = "roll_no";
         public static final String COLUMN_NAME_DIET = "diet_taken";
         public static final String COLUMN_NAME_PRICE = "price";
+    }
+    public static abstract class Users implements BaseColumns {
+        public static final String TABLE_NAME = "users";
+        public static final String COLUMN_NAME = "username";
+        public static final String COLUMN_PASSWORD = "password";
     }
 }

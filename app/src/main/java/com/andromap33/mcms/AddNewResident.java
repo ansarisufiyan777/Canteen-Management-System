@@ -1,6 +1,5 @@
 package com.andromap33.mcms;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -39,7 +38,7 @@ public class AddNewResident extends BaseActivity {
         if (eName.length() == 0 || eBlock.length() == 0 || eRoom.length() == 0 || eSection.length() == 0 || ePhone.length() == 0 || eRollNo.length() == 0) {
             Toast.makeText(this, "Please fill all the fields .", Toast.LENGTH_SHORT).show();
         } else {
-            ResidentDbHelper resDbHelper = new ResidentDbHelper(getApplicationContext());
+            DBHelper resDbHelper = new DBHelper(getApplicationContext());
             SQLiteDatabase mydb = resDbHelper.getWritableDatabase();
 
             // Creating a new map

@@ -1,6 +1,8 @@
 package com.andromap33.mcms;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -33,14 +35,46 @@ public class LoginScreenActivity extends AppCompatActivity {
     public void isValidUser(View view) {
         String userName = ((EditText) findViewById(R.id.username)).getText().toString();
         String password = ((EditText) findViewById(R.id.password)).getText().toString();
-        if (userName.equals("rizwan") && password.equals("0000")) {
-            Intent main = new Intent(this, MainActivity.class);
-            main.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(main);
-            finish();
-        }else{
-            Toast.makeText(this,"Incorrect username or password",Toast.LENGTH_LONG).show();
+//        if (userName.equals("rizwan") && password.equals("0000")) {
+//            Intent main = new Intent(this, MainActivity.class);
+//            main.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            startActivity(main);
+//            finish();
+//        } else {
+//            Toast.makeText(this, "Incorrect username or password", Toast.LENGTH_LONG).show();
+//        }
+
+        validate();
+    }
+
+    private void validate() {
+
+        String userName = ((EditText) findViewById(R.id.username)).getText().toString().trim();
+        String password = ((EditText) findViewById(R.id.password)).getText().toString().trim();
+        if (userName.length() <= 4 || password.length() <= 4) {
+            Toast.makeText(this, "Please enter both fields .", Toast.LENGTH_SHORT).show();
         }
+        DBHelper resDbHelper = new DBHelper(getApplicationContext());
+        SQLiteDatabase mydb = resDbHelper.getReadableDatabase();
+        Cursor c = mydb.rawQuery("SELECT * FROM " + ResidentDBContract.Users.TABLE_NAME +
+                " WHERE " + ResidentDBContract.Users.COLUMN_NAME + " = '" + userName +
+                "' AND " + ResidentDBContract.Users.COLUMN_PASSWORD + " = '" + password + "' ;", null);
+        while (c.moveToNext()) {
+            String name = c.getString(c.getColumnIndexOrThrow(ResidentDBContract.Users.COLUMN_NAME));
+            if (name.length() > 0) {
+                Intent main = new Intent(this, MainActivity.class);
+                main.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(main);
+                finish();
+            }
+        }
+
+        Toast.makeText(this, "Incorrect username or password", Toast.LENGTH_LONG).show();
+
+    }
+
+    public void openSignUp(View view) {
+        startActivity(new Intent(this, Signup.class));
 
     }
 }

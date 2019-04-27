@@ -1,11 +1,12 @@
 package com.andromap33.mcms;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -51,25 +52,34 @@ public class LoginScreenActivity extends AppCompatActivity {
 
         String userName = ((EditText) findViewById(R.id.username)).getText().toString().trim();
         String password = ((EditText) findViewById(R.id.password)).getText().toString().trim();
-        if (userName.length() <= 4 || password.length() <= 4) {
+        if (userName.length() < 1 || password.length() < 1) {
             Toast.makeText(this, "Please enter both fields .", Toast.LENGTH_SHORT).show();
-        }
-        DBHelper resDbHelper = new DBHelper(getApplicationContext());
-        SQLiteDatabase mydb = resDbHelper.getReadableDatabase();
-        Cursor c = mydb.rawQuery("SELECT * FROM " + ResidentDBContract.Users.TABLE_NAME +
-                " WHERE " + ResidentDBContract.Users.COLUMN_NAME + " = '" + userName +
-                "' AND " + ResidentDBContract.Users.COLUMN_PASSWORD + " = '" + password + "' ;", null);
-        while (c.moveToNext()) {
-            String name = c.getString(c.getColumnIndexOrThrow(ResidentDBContract.Users.COLUMN_NAME));
-            if (name.length() > 0) {
-                Intent main = new Intent(this, MainActivity.class);
-                main.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(main);
-                finish();
-            }
-        }
+        } else {
 
-        Toast.makeText(this, "Incorrect username or password", Toast.LENGTH_LONG).show();
+            DBHelper resDbHelper = new DBHelper(getApplicationContext());
+            SQLiteDatabase mydb = resDbHelper.getReadableDatabase();
+            Cursor c = mydb.rawQuery("SELECT * FROM " + StudentDBContract.ResidentEntry1.TABLE_NAME +
+                    " WHERE " + StudentDBContract.ResidentEntry1.COLUMN_NAME_USERNAME + " = '" + userName +
+                    "' AND " + StudentDBContract.ResidentEntry1.COLUMN_NAME_PASSWORD + " = '" + password + "' ;", null);
+            while (c.moveToNext()) {
+                String name = c.getString(c.getColumnIndexOrThrow(StudentDBContract.Users.COLUMN_NAME));
+                if (name.length() > 0) {
+                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putString(StudentDBContract.Users.COLUMN_NAME, userName);
+                    editor.commit();
+                    Intent main = new Intent(this, MainActivity.class);
+                    main.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(main);
+                    finish();
+                    Toast.makeText(this, "Login successful", Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(this, "Incorrect username or password", Toast.LENGTH_LONG).show();
+                }
+            }
+
+
+        }
 
     }
 

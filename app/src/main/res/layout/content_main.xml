@@ -5,8 +5,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="@layout/activity_main"
     android:layout_width="match_parent"
+	android:visibility="gone"
     android:layout_height="match_parent" >
 
 <LinearLayout android:id="@+id/content_main"
@@ -68,6 +68,7 @@
         android:padding="10dp"
 	    android:onClick="view_orders"
 	    android:background="#d11414"
+		android:id="@+id/viewOrders"
 	    android:textColor="#FFFFFF"
 	    android:layout_margin="20dp"
 	    android:text="@string/view_orders"
@@ -87,6 +88,7 @@
         android:onClick="add_today_menu"
 	    android:background="#d11414"
 	    android:textColor="#FFFFFF"
+		android:id="@+id/addTodayMenu"
 	    android:layout_margin="20dp"
 	    android:text="@string/today_menu"
 	    android:layout_width="150dp"

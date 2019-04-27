@@ -11,7 +11,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class ResidentDetailedActivity extends BaseActivity {
+public class StudentDetailedActivity extends BaseActivity {
 
     public String rollNO;
 
@@ -38,13 +38,13 @@ public class ResidentDetailedActivity extends BaseActivity {
     public void show_entries() {
         DBHelper resDbHelper = new DBHelper(getApplicationContext());
         SQLiteDatabase mydb = resDbHelper.getReadableDatabase();
-        Cursor c = mydb.rawQuery("SELECT * FROM " + ResidentDBContract.Diet.TABLE_NAME + " WHERE " + ResidentDBContract.Diet.COLUMN_NAME_ROLLNO + " = " + rollNO + " ;", null);
+        Cursor c = mydb.rawQuery("SELECT * FROM " + StudentDBContract.Diet.TABLE_NAME + " WHERE " + StudentDBContract.Diet.COLUMN_NAME_USERNAME + " = " + rollNO + " ;", null);
         ArrayList<String> entries_list = new ArrayList<String>();
         int total_bill = 0;
         while (c.moveToNext()) {
             String str;
-            String diet_Taken = c.getString(c.getColumnIndexOrThrow(ResidentDBContract.Diet.COLUMN_NAME_DIET));
-            int diet_Price = c.getInt(c.getColumnIndexOrThrow(ResidentDBContract.Diet.COLUMN_NAME_PRICE));
+            String diet_Taken = c.getString(c.getColumnIndexOrThrow(StudentDBContract.Diet.COLUMN_NAME_DIET));
+            int diet_Price = c.getInt(c.getColumnIndexOrThrow(StudentDBContract.Diet.COLUMN_NAME_PRICE));
             total_bill = total_bill + diet_Price;
             str = "Diet taken : " + diet_Taken + "\nPrice : " + diet_Price;
             entries_list.add(str);

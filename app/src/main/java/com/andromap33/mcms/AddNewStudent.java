@@ -8,7 +8,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import android.view.View;
 
-public class AddNewResident extends BaseActivity {
+public class AddNewStudent extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,23 +43,23 @@ public class AddNewResident extends BaseActivity {
 
             // Creating a new map
             ContentValues values = new ContentValues();
-            values.put(ResidentDBContract.ResidentEntry1.COLUMN_NAME_NAME, eName);
-            values.put(ResidentDBContract.ResidentEntry1.COLUMN_NAME_BLOCK, eBlock);
-            values.put(ResidentDBContract.ResidentEntry1.COLUMN_NAME_ROOM, eRoom);
-            values.put(ResidentDBContract.ResidentEntry1.COLUMN_NAME_SECTION, eSection);
-            values.put(ResidentDBContract.ResidentEntry1.COLUMN_NAME_PHONE, ePhone);
-            values.put(ResidentDBContract.ResidentEntry1.COLUMN_NAME_ROLLNO, eRollNo);
-            values.put(ResidentDBContract.ResidentEntry1.COLUMN_NAME_USERNAME, eUsername);
-            values.put(ResidentDBContract.ResidentEntry1.COLUMN_NAME_PASSWORD, ePassword);
+            values.put(StudentDBContract.ResidentEntry1.COLUMN_NAME_NAME, eName);
+            values.put(StudentDBContract.ResidentEntry1.COLUMN_NAME_BLOCK, eBlock);
+            values.put(StudentDBContract.ResidentEntry1.COLUMN_NAME_ROOM, eRoom);
+            values.put(StudentDBContract.ResidentEntry1.COLUMN_NAME_SECTION, eSection);
+            values.put(StudentDBContract.ResidentEntry1.COLUMN_NAME_PHONE, ePhone);
+            values.put(StudentDBContract.ResidentEntry1.COLUMN_NAME_ROLLNO, eRollNo);
+            values.put(StudentDBContract.ResidentEntry1.COLUMN_NAME_USERNAME, eUsername);
+            values.put(StudentDBContract.ResidentEntry1.COLUMN_NAME_PASSWORD, ePassword);
 
             //Inserting a new row
             long newRowID = mydb.insert(
-                    ResidentDBContract.ResidentEntry1.TABLE_NAME,
-                    ResidentDBContract.ResidentEntry1.COLUMN_NAME_NAME,
+                    StudentDBContract.ResidentEntry1.TABLE_NAME,
+                    StudentDBContract.ResidentEntry1.COLUMN_NAME_NAME,
                     values
             );
             Toast.makeText(this, "Resident added .", Toast.LENGTH_SHORT).show();
-            Intent back = new Intent(this, ResidentsList.class);
+            Intent back = new Intent(this, StudentList.class);
             back.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(back);
             finish();

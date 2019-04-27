@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout 
-    tools:context="com.andromap33.mcms.ResidentDetailedActivity"
+    tools:context="com.andromap33.mcms.StudentDetailedActivity"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,6 +12,7 @@
 		android:background="#3F51B5"
     	android:orientation="horizontal"
         android:weightSum="1"
+        android:visibility="gone"
         android:gravity="center"
     	android:layout_width="match_parent"
     	android:layout_height="45dp" >
@@ -29,6 +30,7 @@
             android:onClick="add_entry"
             android:background="#3F51B5"
             android:textSize="16sp"
+            android:visibility="gone"
             android:textColor="#FFFFFF"
             android:layout_marginStart="10dp"
             android:layout_width="wrap_content"

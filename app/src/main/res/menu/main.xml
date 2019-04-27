@@ -1,15 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/addMenu"
+        android:title="Add Menu"
+        android:icon="@drawable/information"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/viewUsers"
+        android:title="View Users"
+        android:icon="@drawable/information"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/viewOrders"
+        android:title="View Orders"
+        android:icon="@drawable/information"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/myOrders"
+        android:title="My Orders"
+        android:icon="@drawable/information"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/info"
+        android:title="About Us"
+        android:icon="@drawable/information"
+        app:showAsAction="never" />
     <item
         android:id="@+id/logout"
         android:title="Logout"
         android:icon="@drawable/logout"
-        app:showAsAction="always" />
+        app:showAsAction="never" />
 
-    <item
-        android:id="@+id/info"
-        android:title="Logout"
-        android:icon="@drawable/information"
-        app:showAsAction="always" />
 </menu>

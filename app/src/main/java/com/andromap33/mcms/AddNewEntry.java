@@ -43,18 +43,18 @@ public class AddNewEntry extends BaseActivity {
             SQLiteDatabase mydb = resDbHelper.getWritableDatabase();
             // Creating a new map
             ContentValues values = new ContentValues();
-            values.put(ResidentDBContract.Diet.COLUMN_NAME_ROLLNO, roll_NO);
-            values.put(ResidentDBContract.Diet.COLUMN_NAME_DIET, diet_Taken);
-            values.put(ResidentDBContract.Diet.COLUMN_NAME_PRICE, diet_Price);
+            values.put(StudentDBContract.Diet.COLUMN_NAME_USERNAME, roll_NO);
+            values.put(StudentDBContract.Diet.COLUMN_NAME_DIET, diet_Taken);
+            values.put(StudentDBContract.Diet.COLUMN_NAME_PRICE, diet_Price);
 
             //Inserting a new row
             long newRowID = mydb.insert(
-                    ResidentDBContract.Diet.TABLE_NAME,
-                    ResidentDBContract.Diet.COLUMN_NAME_PRICE,
+                    StudentDBContract.Diet.TABLE_NAME,
+                    StudentDBContract.Diet.COLUMN_NAME_PRICE,
                     values
             );
             Toast.makeText(this, "Entry added .", Toast.LENGTH_SHORT).show();
-            Intent back = new Intent(this, ResidentDetailedActivity.class).putExtra(Intent.EXTRA_TEXT, roll_NO);
+            Intent back = new Intent(this, StudentDetailedActivity.class).putExtra(Intent.EXTRA_TEXT, roll_NO);
             back.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(back);
             finish();

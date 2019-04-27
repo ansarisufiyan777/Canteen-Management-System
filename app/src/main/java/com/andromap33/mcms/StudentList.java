@@ -9,13 +9,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView;
 
 import java.util.ArrayList;
 
-public class ResidentsList extends BaseActivity {
+public class StudentList extends BaseActivity {
 
     private Button pre_button;
     private Boolean do_search = false;
@@ -31,42 +30,11 @@ public class ResidentsList extends BaseActivity {
     }
 
     public void show_list(View view) {
-        int block_no = 1;
-        pre_button.setTextSize(15);
-        Button btn = (Button) view;
-        btn.setTextSize(22);
-        //btn . setBackgroundColor(414);
-        pre_button = btn;
-        switch (view.getId()) {
-            case R.id.block1:
-                block_no = 1;
-                break;
-            case R.id.block2:
-                block_no = 2;
-                break;
-            case R.id.block3:
-                block_no = 3;
-                break;
-            case R.id.block4:
-                block_no = 4;
-                break;
-            case R.id.block5:
-                block_no = 5;
-                break;
-        }
-        TextView blockNum = (TextView) findViewById(R.id.block_no);
-        String text = "BLOCK  :  " + block_no;
-        blockNum.setText(text);
         DBHelper resDbHelper = new DBHelper(getApplicationContext());
         SQLiteDatabase mydb = resDbHelper.getReadableDatabase();
         Cursor c;
-        if (!do_search) {
-            EditText search_room = (EditText) findViewById(R.id.search_roomNo);
-            search_room.setText("");
-            c = mydb.rawQuery("SELECT * FROM " + ResidentDBContract.ResidentEntry1.TABLE_NAME + " WHERE " + ResidentDBContract.ResidentEntry1.COLUMN_NAME_BLOCK + " = " + block_no + " ;", null);
-        } else {
-            c = mydb.rawQuery("SELECT * FROM " + ResidentDBContract.ResidentEntry1.TABLE_NAME + " WHERE " + ResidentDBContract.ResidentEntry1.COLUMN_NAME_BLOCK + " = " + block_no + " AND " + ResidentDBContract.ResidentEntry1.COLUMN_NAME_ROOM + " = " + room_no + " ;", null);
-        }
+        c = mydb.rawQuery("SELECT * FROM " + StudentDBContract.ResidentEntry1.TABLE_NAME + " ;", null);
+
         ArrayList<String> resident_array_list = new ArrayList<String>();
         ArrayList<Integer> resident_roll_nos = new ArrayList<Integer>();
 
@@ -74,12 +42,12 @@ public class ResidentsList extends BaseActivity {
         while (c.moveToNext()) {
             inside_loop = true;
             String str;
-            String name = c.getString(c.getColumnIndexOrThrow(ResidentDBContract.ResidentEntry1.COLUMN_NAME_NAME));
-            int blockNo = c.getInt(c.getColumnIndexOrThrow(ResidentDBContract.ResidentEntry1.COLUMN_NAME_BLOCK));
-            int roomNo = c.getInt(c.getColumnIndexOrThrow(ResidentDBContract.ResidentEntry1.COLUMN_NAME_ROOM));
-            String section = c.getString(c.getColumnIndexOrThrow(ResidentDBContract.ResidentEntry1.COLUMN_NAME_SECTION));
-            String mobNo = c.getString(c.getColumnIndexOrThrow(ResidentDBContract.ResidentEntry1.COLUMN_NAME_PHONE));
-            int rollNo = c.getInt(c.getColumnIndexOrThrow(ResidentDBContract.ResidentEntry1.COLUMN_NAME_ROLLNO));
+            String name = c.getString(c.getColumnIndexOrThrow(StudentDBContract.ResidentEntry1.COLUMN_NAME_NAME));
+            int blockNo = c.getInt(c.getColumnIndexOrThrow(StudentDBContract.ResidentEntry1.COLUMN_NAME_BLOCK));
+            int roomNo = c.getInt(c.getColumnIndexOrThrow(StudentDBContract.ResidentEntry1.COLUMN_NAME_ROOM));
+            String section = c.getString(c.getColumnIndexOrThrow(StudentDBContract.ResidentEntry1.COLUMN_NAME_SECTION));
+            String mobNo = c.getString(c.getColumnIndexOrThrow(StudentDBContract.ResidentEntry1.COLUMN_NAME_PHONE));
+            int rollNo = c.getInt(c.getColumnIndexOrThrow(StudentDBContract.ResidentEntry1.COLUMN_NAME_ROLLNO));
             resident_roll_nos.add(rollNo);
             str = name + "  " + blockNo + "/" + roomNo + section + "  " + mobNo + "  " + rollNo;
             resident_array_list.add(str);
@@ -103,7 +71,7 @@ public class ResidentsList extends BaseActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
                 String resident = resident_adapter.getItem(pos);
                 int roll_no = roll_nos_list.get(pos);
-                Intent intent = new Intent(getApplicationContext(), ResidentDetailedActivity.class)/*.putExtra(Intent . EXTRA_TEXT , resident)*/;
+                Intent intent = new Intent(getApplicationContext(), StudentDetailedActivity.class)/*.putExtra(Intent . EXTRA_TEXT , resident)*/;
                 intent.putExtra(Intent.EXTRA_TEXT, roll_no + "");
                 startActivity(intent);
             }
@@ -112,7 +80,7 @@ public class ResidentsList extends BaseActivity {
     }
 
     public void add_new_resident(View view) {
-        Intent intent = new Intent(this, AddNewResident.class);
+        Intent intent = new Intent(this, AddNewStudent.class);
         startActivity(intent);
     }
 

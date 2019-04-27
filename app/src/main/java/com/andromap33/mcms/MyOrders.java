@@ -2,9 +2,11 @@ package com.andromap33.mcms;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,7 +15,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class ViewOrders extends BaseActivity {
+public class MyOrders extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +27,10 @@ public class ViewOrders extends BaseActivity {
     public void show_entries() {
         DBHelper resDbHelper = new DBHelper(getApplicationContext());
         SQLiteDatabase mydb = resDbHelper.getReadableDatabase();
-        Cursor c = mydb.rawQuery("SELECT * FROM " + StudentDBContract.Diet.TABLE_NAME+";", null);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyOrders.this);
+
+        Cursor c = mydb.rawQuery("SELECT * FROM " + StudentDBContract.Diet.TABLE_NAME
+                +" WHERE " +  StudentDBContract.Diet.COLUMN_NAME_USERNAME +" = '" + prefs.getString(StudentDBContract.Users.COLUMN_NAME,"Rizwan")+ "' ;", null);
         ArrayList<String> entries_list = new ArrayList<String>();
         int total_bill = 0;
         String username = "Rizwan";
@@ -83,7 +88,7 @@ public class ViewOrders extends BaseActivity {
             str += c.getInt(c.getColumnIndexOrThrow(StudentDBContract.ResidentEntry1.COLUMN_NAME_ROLLNO));
         }
 
-        new AlertDialog.Builder(ViewOrders.this)
+        new AlertDialog.Builder(MyOrders.this)
                 .setTitle(username)
                 .setMessage(str)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
